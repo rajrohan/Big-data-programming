@@ -56,17 +56,6 @@ def check_lcs(lcs1, lcs2):
     print("Longest common sub-sequences: ", [string for string in multiple_lcs if len(string) == le])
 
 
-# Basic Switch to test the application without rerun the source code.
-def switch_case(continue_exit):
-    continue_exit = continue_exit.upper()
-    if continue_exit == 'Y':
-        main()
-    elif continue_exit == 'N':
-        print("Exiting the application...")
-        sleep(1)
-    else:
-        print("Please enter either y or n")
-
 # Main function
 def main():
     first_input_string = input("Please enter the first string: ")
@@ -75,7 +64,7 @@ def main():
     lcs2_1 = check_each_char(second_input_string, first_input_string)
     print("All the common strings ", unique(lcs1_2+lcs2_1))
     check_lcs(lcs1_2, lcs2_1)
-    switch_case(input("Please press y(continue) or n(close) and press enter "))
+    main()
 
 # Application startpoint.
 if __name__ == "__main__":

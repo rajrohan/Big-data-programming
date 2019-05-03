@@ -1,7 +1,11 @@
 #  Copyright (c) $30.2019
-import time
+from time import sleep
 
-
+# This Function will be checking first_string with second_string. 
+# second_string is the pattern formed with (a-z), (.), (*)
+# a-z : match for all the alphabet literall 
+# . : Matches 1 occurence of any character 
+# * : Matches 0 or more occurence of the previous single character
 def match_strings(first_string, second_string):
     flag_wildcard = True
     flag_star = True
@@ -29,6 +33,8 @@ def match_strings(first_string, second_string):
     return flag_wildcard and flag_star and flag_literal and flag_symbol
 
 
+# This is the sub function which will be called when pattern string has literal characters
+# Example abc 
 def literal_characters(sample, regex_char,literal_index):
     star_test = True
     try:
@@ -50,6 +56,7 @@ def literal_characters(sample, regex_char,literal_index):
         print()
 
 
+# This is the sub function which will be called when pattern string has dot(.) characters
 def wildcard(sample, regex_char,wildcard_index):
     try:
         if len(sample[wildcard_index]) == 1 or len(sample) > len(regex_char):
@@ -65,6 +72,7 @@ def wildcard(sample, regex_char,wildcard_index):
         print()
 
 
+ # This is the sub function which will be called when pattern string has star(*) characters
 def star(sample, regex_char, star_index):
     for sample_index in range(len(sample)):
         try:
@@ -85,17 +93,19 @@ def star(sample, regex_char, star_index):
             print()
 
 
+ # Basic Switch to test the application without rerun the source code.
 def switch_case(continue_exit):
     continue_exit = continue_exit.upper()
     if continue_exit == 'Y':
         main()
     elif continue_exit == 'N':
         print("Exiting the application...")
-        time.sleep(1)
+        sleep(1)
     else:
         print("Please enter either y or n")
 
 
+ # Main function
 def main():
     first_input_string = (input("Please enter the first string: ")).lower()
     second_input_string = (input("Please enter the Regular expression string: ")).lower()

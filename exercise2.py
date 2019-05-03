@@ -1,12 +1,7 @@
-#  Copyright (c) $Rohan
-from time import sleep
+#  Copyright (c) $30.2019
+import time
 
 
-# This Function will be checking first_string with second_string. 
-# second_string is the pattern formed with (a-z), (.), (*)
-# a-z : match for all the alphabet literall 
-# . : Matches 1 occurence of any character 
-# * : Matches 0 or more occurence of the previous single character
 def match_strings(first_string, second_string):
     flag_wildcard = True
     flag_star = True
@@ -34,8 +29,6 @@ def match_strings(first_string, second_string):
     return flag_wildcard and flag_star and flag_literal and flag_symbol
 
 
-# This is the sub function which will be called when pattern string has literal characters
-# Example abc 
 def literal_characters(sample, regex_char,literal_index):
     star_test = True
     try:
@@ -49,31 +42,38 @@ def literal_characters(sample, regex_char,literal_index):
                 elif regex_char[sample_index+1] == '*':
                     star_test = star(sample, regex_char, sample_index)
                     return star_test
+                elif regex_char[literal_index] == '.':
+                    return True
                 else:
                     return False
     except:
         print()
 
-# This is the sub function which will be called when pattern string has dot(.) characters
+
 def wildcard(sample, regex_char,wildcard_index):
     try:
         if len(sample[wildcard_index]) == 1 or len(sample) > len(regex_char):
             if len(sample) > len(regex_char):
+                if regex_char[wildcard_index+1] == '*':
+                    return True
                 return False
+
             return True
         else:
             return False
     except:
         print()
 
-# This is the sub function which will be called when pattern string has star(*) characters
+
 def star(sample, regex_char, star_index):
     for sample_index in range(len(sample)):
         try:
             if sample[star_index-1] == regex_char[star_index-1] or sample[star_index-1] == '' or regex_char[star_index-1] == '.' or len(regex_char[star_index-1])== 1:
                 if regex_char[star_index-1] == '.':
                     wildcard_flag = wildcard(sample,regex_char,star_index-1)
-                    return wildcard_flag
+                    if wildcard_flag == True :
+                        flag_literal = literal_characters(sample,regex_char,star_index-1)
+                    return wildcard_flag and flag_literal
                 return True
             elif sample[star_index] == regex_char[sample_index]:
                 return True
@@ -84,19 +84,18 @@ def star(sample, regex_char, star_index):
         except:
             print()
 
-# Basic Switch to test the application without rerun the source code.
+
 def switch_case(continue_exit):
     continue_exit = continue_exit.upper()
     if continue_exit == 'Y':
         main()
     elif continue_exit == 'N':
         print("Exiting the application...")
-        sleep(1)
+        time.sleep(1)
     else:
         print("Please enter either y or n")
 
 
-# Main function
 def main():
     first_input_string = (input("Please enter the first string: ")).lower()
     second_input_string = (input("Please enter the Regular expression string: ")).lower()
@@ -105,6 +104,5 @@ def main():
     switch_case(input("Please press y(continue) or n(close) and press enter "))
 
 
-# Application startpoint.
 if __name__ == "__main__":
     main()

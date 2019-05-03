@@ -34,7 +34,9 @@ def match_strings(first_string, second_string):
 
 
 # This is the sub function which will be called when pattern string has literal characters
-# Example abc 
+# If * is there instead of literal then perform star test, two condition because * means more than zero or more occurance  
+# example if sample - bbb and pattern- d*b*, 1. b!=d 2.char!=* 3.char==* then because of 3rd case sapmle still stisfy the pattern.  
+# if . is there then perform wildcard testand based on the char return the result.
 def literal_characters(sample, regex_char,literal_index):
     star_test = True
     try:
@@ -57,6 +59,8 @@ def literal_characters(sample, regex_char,literal_index):
 
 
 # This is the sub function which will be called when pattern string has dot(.) characters
+# first if condition explains about the wildcard can be replace by any single character and if the sample string has larger than pattern string 
+# then check for .* pattern if yes return true otherwise return false.
 def wildcard(sample, regex_char,wildcard_index):
     try:
         if len(sample[wildcard_index]) == 1 or len(sample) > len(regex_char):
@@ -72,7 +76,10 @@ def wildcard(sample, regex_char,wildcard_index):
         print()
 
 
- # This is the sub function which will be called when pattern string has star(*) characters
+# This is the sub function which will be called when pattern string has star(*) characters
+# Multiple condition are being checked with or statement then checks are perform on certain condition.
+# condition like if '.' is there than call wildcard(.) method and if '.' is available
+# then look for the literals because '.*' means '.' can repeated n number of times.   
 def star(sample, regex_char, star_index):
     for sample_index in range(len(sample)):
         try:
